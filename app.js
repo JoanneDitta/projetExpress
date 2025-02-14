@@ -13,8 +13,10 @@ const routes = require('./src/routes/authRoutes');
 app.use('/', routes);
 const heyRoutes = require('./src/routes/heyRoutes');
 app.use(heyRoutes);
-const authRoutes = require('./src/routes/authRoutes');
-app.use(authRoutes);
+// const registerRoutes = require('./src/routes/registerRoutes');
+// app.use(authRoutes);
+const profileRoutes = require('./src/routes/profileRoutes');
+app.use('/profile', profileRoutes);
 
 app.use(passport.initialize());
 
