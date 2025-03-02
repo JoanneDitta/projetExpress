@@ -14,6 +14,10 @@ app.use(heyRoutes);
 const authRoutes = require('./routes/authRoutes');
 app.use(authRoutes);
 
+const registerRoutes = require('./src/routes/registerRoutes');
+app.use('/register', registerRoutes);
+
+
 app.use(passport.initialize());
 
 app.use(function (err, req, res, next) {
