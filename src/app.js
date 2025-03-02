@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const bcrypt = require("bcrypt");
 // require('./src/models/auth');
 
 
@@ -14,7 +15,7 @@ app.use(heyRoutes);
 const authRoutes = require('./routes/authRoutes');
 app.use(authRoutes);
 
-const registerRoutes = require('./src/routes/registerRoutes');
+const registerRoutes = require('./routes/registerRoutes');
 app.use('/register', registerRoutes);
 
 
