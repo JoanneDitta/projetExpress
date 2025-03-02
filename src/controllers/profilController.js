@@ -3,7 +3,10 @@ const User = db.User;
 
 const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findByPk(req.user.id, {
+    const userId = req.params.id; // Récupère l'ID dans l'URL
+
+    // Vérifie si l'utilisateur existe
+    const user = await User.findByPk(userId, {
       attributes: ["nom", "prenom", "email", "pseudo"], // Sélectionne uniquement ces champs
     });
 
