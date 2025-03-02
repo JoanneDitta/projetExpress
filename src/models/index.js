@@ -1,10 +1,8 @@
 const express = require("express");
-const db = require("./models"); // Import de la connexion Sequelize et des modèles
 
 const app = express();
 app.use(express.json());
 
-const User = db.User; // s'assure que le modèle User existe
 
 app.post("/users", async (req, res) => {
   try {
@@ -24,13 +22,24 @@ app.get("/users", async (req, res) => {
   }
 });
 
-app.listen(3000, async () => {
-  try {
-    await db.sequelize.authenticate(); // Vérifie la connexion à la BDD
-    console.log("Connexion à la base de données réussie !");
-  } catch (error) {
-    console.error("Impossible de se connecter à la base de données :", error);
-  }
-  console.log("Serveur démarré sur http://localhost:3000");
+const { Sequelize, DataTypes } = require("sequelize");
+
+// Connexion à la base de données (remplace les valeurs par les tiennes)
+const sequelize = new Sequelize("projetexpress", "root", "", {
+  host: "localhost",
+  dialect: "mysql", // ou 'postgres', 'sqlite', 'mssql'
 });
 
+// Import des modèles
+const User = require("./user")(sequelize, DataTypes);
+
+// Regroupe les modèles dans un objet db
+const db = { sequelize, User };
+
+// Synchronisation de la base de données
+db.sequelize.sync()
+  .then(() => console.log("Base de données synchronisée !"))
+  .catch((err) => console.error("Erreur de synchronisation :", err));
+
+// Exportation
+module.exports = db;
