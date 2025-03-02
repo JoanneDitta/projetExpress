@@ -4,6 +4,7 @@ const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt');
 const jwt = require('jsonwebtoken');
 const { User } = require('./index'); // Import du modèle User
 
+
 passport.use(
     'login',
     new localStrategy(
