@@ -22,6 +22,9 @@ app.use('/register', registerRoutes);
 // Profil Routes
 const profileRoutes = require('./routes/profilRoutes');
 app.use('/profile', profileRoutes);
+// Delete User Routes
+const profileRoutes = require('./routes/profilRoutes');
+app.use('/users/rm', profileRoutes);
 
 
 app.use(passport.initialize());
