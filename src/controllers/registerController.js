@@ -4,29 +4,35 @@ const User = db.User;
 
 const registerUser = async (req, res) => {
   try {
-    const { pseudo, email, password } = req.body;
+    console.log("Données reçues :", req.body); // 🔍 Vérifie ce qui est reçu
 
-    // Vérifier l'existance du User
-    const existingUser = await User.findOne({
-      where: {
-        [db.Sequelize.Op.or]: [{ pseudo }, { email }],
-      },
-    });
-
-    if (existingUser) {
-      return res.status(400).json({ status: "KO", message: "Pseudo ou email déjà utilisé" });
+    if (!req.body) {
+      return res.status(400).json({ status: "KO", message: "Aucune donnée reçue" });
     }
 
-    // Hacher le mdp
+    const { nom, prenom, pseudo, email, password } = req.body;
+
+    if (!nom || !prenom || !pseudo || !email || !password) {
+      return res.status(400).json({ status: "KO", message: "Tous les champs sont requis" });
+    }
+
+    // Vérifier si l'utilisateur existe déjà
+    const existingUser = await User.findOne({ where: { email } });
+
+    if (existingUser) {
+      return res.status(400).json({ status: "KO", message: "Email déjà utilisé" });
+    }
+
+    // Hasher le mot de passe
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Création nouveau User
-    await User.create({ pseudo, email, password: hashedPassword });
+    // Créer un nouvel utilisateur
+    const newUser = await User.create({ nom, prenom, pseudo, email, password: hashedPassword });
 
-    res.status(201).json({ status: "OK", message: "Utilisateur créé avec succès" });
+    res.status(201).json({ status: "OK", message: "Utilisateur créé", user: newUser });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ status: "KO", message: "Erreur serveur" });
+    res.status(500).json({ status: "KO", message: "Erreur serveur", error: error.message });
   }
 };
 

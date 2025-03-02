@@ -41,5 +41,10 @@ db.sequelize.sync()
   .then(() => console.log("Base de données synchronisée !"))
   .catch((err) => console.error("Erreur de synchronisation :", err));
 
+db.sequelize
+  .authenticate()
+  .then(() => console.log("✅ Connexion réussie à MySQL"))
+  .catch((err) => console.error("❌ Erreur connexion MySQL :", err));
+
 // Exportation
 module.exports = db;
