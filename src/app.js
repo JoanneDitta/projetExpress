@@ -1,13 +1,13 @@
 const express = require('express');
 const passport = require('passport');
 const bcrypt = require("bcrypt");
-// require('./src/models/auth');
+require('./models/auth'); // Importer les stratégies de passport
 
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json()); 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Hey Routes
