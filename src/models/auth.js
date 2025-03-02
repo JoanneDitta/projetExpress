@@ -4,6 +4,27 @@ const localStrategy = require('passport-local').Strategy;
 const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt');
 const jwt = require('jsonwebtoken');
 
+// Utilisation de la stratégie signup
+passport.use(
+    'signup',
+    new localStrategy(
+        {
+            usernameField: 'email',
+            passwordField: 'password',
+        },
+        async (email, password, done) => {
+            try {
+                const user = {
+                    email: 'test',
+                    password: 'test'
+                };
+                return done(null, user);
+            } catch (error) {
+                done(error);
+            }
+        }
+    )
+);
 
 // Utilisation de la stratégie login
 passport.use(
