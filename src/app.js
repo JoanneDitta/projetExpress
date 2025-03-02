@@ -1,6 +1,5 @@
 const express = require('express');
 const passport = require('passport');
-// require('./src/models/auth');
 
 
 const app = express();
@@ -13,8 +12,7 @@ const heyRoutes = require('./routes/heyRoutes');
 app.use(heyRoutes);
 const authRoutes = require('./routes/authRoutes');
 app.use(authRoutes);
-
-const registerRoutes = require('./src/routes/registerRoutes');
+const registerRoutes = require('./routes/registerRoutes');
 app.use('/register', registerRoutes);
 
 
