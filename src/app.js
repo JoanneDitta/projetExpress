@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-require('./src/models/auth');
+const auth = require('./models/auth');
 
 
 const app = express();
@@ -17,6 +17,10 @@ app.use(heyRoutes);
 // app.use(authRoutes);
 const profileRoutes = require('./src/routes/profileRoutes');
 app.use('/profile', profileRoutes);
+
+const registerRoutes = require('./src/routes/registerRoutes');
+app.use('/register', registerRoutes);
+
 
 app.use(passport.initialize());
 
