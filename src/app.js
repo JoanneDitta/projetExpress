@@ -22,6 +22,22 @@ app.use('/register', registerRoutes);
 // Profil Routes
 const profileRoutes = require('./routes/profilRoutes');
 app.use('/profile', profileRoutes);
+//Ban user
+const userRoutes = require("./routes/isBannedRoutes");
+app.use("/users", userRoutes);
+//liste User
+const userRoutes = require("./routes/userRoutes");
+app.use("/users", userRoutes);
+//Up User Admin
+const userRoutes = require("./routes/UpUserRoutes");
+app.use("/user", userRoutes);
+//Down User Admin
+const userRoutes = require("./routes/DownUserRoutes");
+app.use("/user", userRoutes);
+
+
+
+
 
 
 app.use(passport.initialize());

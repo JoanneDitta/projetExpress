@@ -33,12 +33,17 @@ passport.use(
         {
             usernameField: 'email',
             passwordField: 'password',
+            roleField: "role",
+            banField:"isBanned",
+           
         },
         async (email, password, done) => {
             try {
                 const user = {
                     email: 'test',
-                    password: 'test'
+                    password: 'test',
+                    role:'admin',
+                    isBanned: ""
                 };
 
                 if (!user || user.password !== password) {
@@ -46,7 +51,7 @@ passport.use(
                 }
 
                 // Si l'utilisateur est authentifié, on génère un token
-                const payload = { _id: 'userId', email: user.email };
+                const payload = { _id: 'userId', email: user.email, role: user.role, isBanned: user.isBanned};
                 const token = jwt.sign({ user: payload }, 'TOP_SECRET', { expiresIn: '1h' });
 
                 return done(null, { user, token }); // Passer l'objet user et le token
