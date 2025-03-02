@@ -10,9 +10,9 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ status: "KO", message: "Aucune donnée reçue" });
     }
 
-    const { nom, prenom, pseudo, email, password } = req.body;
+    const { nom, prenom, role,  pseudo, email, password } = req.body;
 
-    if (!nom || !prenom || !pseudo || !email || !password) {
+    if (!nom || !prenom || !pseudo || !email || !password || !role) {
       return res.status(400).json({ status: "KO", message: "Tous les champs sont requis" });
     }
 
@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Créer un nouvel utilisateur
-    const newUser = await User.create({ nom, prenom, pseudo, email, password: hashedPassword });
+    const newUser = await User.create({ nom, prenom, role, pseudo, email, password: hashedPassword });
 
     res.status(201).json({ status: "OK", message: "Utilisateur créé", user: newUser });
   } catch (error) {
