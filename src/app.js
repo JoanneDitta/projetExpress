@@ -7,15 +7,21 @@ const bcrypt = require("bcrypt");
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
+//Hey Routes
 const heyRoutes = require('./routes/heyRoutes');
 app.use(heyRoutes);
+// Auth Routes
 const authRoutes = require('./routes/authRoutes');
 app.use(authRoutes);
+// Regiter Routes
 const registerRoutes = require('./routes/registerRoutes');
 app.use('/register', registerRoutes);
+// Profil Routes
+const profileRoutes = require('./routes/profilRoutes');
+app.use('/profile', profileRoutes);
 
 
 app.use(passport.initialize());
