@@ -1,43 +1,36 @@
-'use strict';
+const express = require("express");
+const db = require("./models"); // Import de la connexion Sequelize et des modèles
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+const app = express();
+app.use(express.json());
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+const User = db.User; // s'assure que le modèle User existe
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (
-      file.indexOf('.') !== 0 &&
-      file !== basename &&
-      file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
-    );
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+app.post("/users", async (req, res) => {
+  try {
+    const user = await User.create(req.body);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.findAll();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
-module.exports = db;
+app.listen(3000, async () => {
+  try {
+    await db.sequelize.authenticate(); // Vérifie la connexion à la BDD
+    console.log("Connexion à la base de données réussie !");
+  } catch (error) {
+    console.error("Impossible de se connecter à la base de données :", error);
+  }
+  console.log("Serveur démarré sur http://localhost:3000");
+});
+
