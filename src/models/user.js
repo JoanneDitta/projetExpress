@@ -21,5 +21,29 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
-  return User;
+  
+  module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define("User", {
+      pseudo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true, // Empêche les doublons
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true, // Empêche les doublons
+        validate: {
+          isEmail: true, // Vérifie que c'est bien un email
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    });
+  
+    return User;
+  };
+  
 };
