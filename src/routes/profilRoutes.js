@@ -8,5 +8,3 @@ const router = express.Router();
 router.get("/:id", authenticateToken, getUserProfile);
 
 module.exports = router;
-
-
