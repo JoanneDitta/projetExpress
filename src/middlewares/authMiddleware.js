@@ -7,7 +7,7 @@ const authenticateToken = (req, res, next) => {
   }
 
   try {
-    const verified = jwt.verify(token.replace("Bearer ", ""), "SECRET_KEY"); // Enlève "Bearer " si présent
+    const verified = jwt.verify(token.replace("Bearer ", ""), "TOP_SECRET"); // Enlève "Bearer " si présent
     req.user = verified; // On stocke les infos du user dans req.user
     next();
   } catch (err) {
