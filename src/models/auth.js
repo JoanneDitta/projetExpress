@@ -2,27 +2,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt');
 const jwt = require('jsonwebtoken');
-
-passport.use(
-    'signup',
-    new localStrategy(
-        {
-            usernameField: 'email',
-            passwordField: 'password',
-        },
-        async (email, password, done) => {
-            try {
-                const user = {
-                    email: 'test',
-                    password: 'test'
-                };
-                return done(null, user);
-            } catch (error) {
-                done(error);
-            }
-        }
-    )
-);
+const { User } = require('./index'); // Import du modèle User
 
 passport.use(
     'login',
@@ -33,21 +13,19 @@ passport.use(
         },
         async (email, password, done) => {
             try {
-                const user = {
-                    email: 'test',
-                    password: 'test'
-                };
+                // Compare à l'utilisateur de la bdd
+                const user = await User.findOne({ where: { email } });
 
                 if (!user || user.password !== password) {
-                    return done(null, false, { message: 'User not found or incorrect password' });
+                    return done(null, false, { message: 'Bad credentials/incorrect user' });
                 }
 
-                const payload = { _id: 'userId', email: user.email };
-                const token = jwt.sign({ user: payload }, 'TOP_SECRET', { expiresIn: '1h' });
+                const payload = { id: user.id, email: user.email };
+                const token = jwt.sign(payload, 'TOP_SECRET', { expiresIn: '1h' });
 
                 return done(null, { user, token });
             } catch (error) {
-                done(error);
+                return done(error);
             }
         }
     )
@@ -68,4 +46,3 @@ passport.use(
         }
     )
 );
- 
