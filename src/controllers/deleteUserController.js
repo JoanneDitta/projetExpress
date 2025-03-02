@@ -1,4 +1,4 @@
-const users = require("../models/users"); // Assure-toi d’avoir un modèle Users simulé ou connecté à une base de données
+const users = require("../models"); // Assure-toi d’avoir un modèle Users simulé ou connecté à une base de données
 
 const deleteUserController = async (req, res) => {
     try {
