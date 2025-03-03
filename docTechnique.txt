@@ -21,15 +21,17 @@ POST
 localhost:3000/users/ban
 Authorization ; bearer token
 ------------------------------------------------------
-POST
+GET
 localhost:3000/users/list
 Authorization ; bearer token
 ------------------------------------------------------
 POST
 localhost:3000/user/up
 Authorization ; bearer token
+Body ; raw ; JSON {"userId": 2}
 ------------------------------------------------------
 POST
 localhost:3000/user/down
 Authorization ; bearer token
+Body ; raw ; JSON {"userId": 3}
 ------------------------------------------------------
