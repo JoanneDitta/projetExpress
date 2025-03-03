@@ -23,19 +23,17 @@ app.use('/register', registerRoutes);
 const profileRoutes = require('./routes/profilRoutes');
 app.use('/profile', profileRoutes);
 //Ban user
-const userRoutes = require("./routes/isBannedRoutes");
-app.use("/users", userRoutes);
+const isBannedRoutes = require("./routes/isBannedRoutes");
+app.use("/users", isBannedRoutes);
 //liste User
-const userRoutes = require("./routes/userRoutes");
-app.use("/users", userRoutes);
+const listeUserRoutes = require("./routes/listeUserRoutes");
+app.use("/users", listeUserRoutes);
 //Up User Admin
-const userRoutes = require("./routes/UpUserRoutes");
-app.use("/user", userRoutes);
+const UpUserRoutes = require("./routes/UpUserRoutes");
+app.use("/user", UpUserRoutes);
 //Down User Admin
-const userRoutes = require("./routes/DownUserRoutes");
-app.use("/user", userRoutes);
-
-
+const DownUserRoutes = require("./routes/DownUserRoutes");
+app.use("/user", DownUserRoutes);
 
 
 // Delete User Routes
