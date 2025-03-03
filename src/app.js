@@ -38,6 +38,9 @@ app.use("/user", userRoutes);
 
 
 
+// Delete User Routes
+const deleteRoutes = require('./routes/deleteUserRoutes');
+app.use('/users/rm', deleteRoutes);
 
 
 app.use(passport.initialize());
