@@ -5,8 +5,6 @@ const { upgradeToAdmin, downgradeToUser } = require("../controllers/DownUserCont
 
 const router = express.Router();
 
-// Route pour élever un utilisateur en admin (réservé aux admins)
-router.post("/up", authenticateToken, isAdmin, upgradeToAdmin);
 
 // Route pour rétrograder un admin en utilisateur (réservé aux admins)
 router.post("/down", authenticateToken, isAdmin, downgradeToUser);
