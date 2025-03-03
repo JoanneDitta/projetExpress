@@ -1,0 +1,35 @@
+GET
+localhost:3000/test
+------------------------------------------------------
+POST
+localhost:3000/register
+Body ; raw ; JSON {"nom": "nom", "prenom": "prenom", "pseudo": "pseudo", "email": "nomprenom@gmail.com", "password": "password", role: "admin"}
+------------------------------------------------------
+POST
+localhost:3000/login
+Body ; raw ; JSON {"email": "nomprenom@gmail.com", "password": "password"}
+------------------------------------------------------
+GET
+localhost:3000/profile/1
+Authorization ; bearer token
+------------------------------------------------------
+DELETE
+localhost:3000/users/rm/2
+Authorization ; bearer token
+------------------------------------------------------
+POST
+localhost:3000/users/ban
+Authorization ; bearer token
+------------------------------------------------------
+POST
+localhost:3000/users/list
+Authorization ; bearer token
+------------------------------------------------------
+POST
+localhost:3000/user/up
+Authorization ; bearer token
+------------------------------------------------------
+POST
+localhost:3000/user/down
+Authorization ; bearer token
+------------------------------------------------------

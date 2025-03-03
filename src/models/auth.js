@@ -18,7 +18,7 @@ passport.use(
         },
         async (email, password, done) => {
             try {
-                // Recherche de l'utilisateur dans la base de données}}
+                // Recherche de l'utilisateur dans la base de données
                 const user = await User.findOne({ where: { email: email } });
 
                 if (!user) {
@@ -32,8 +32,8 @@ passport.use(
                 }
 
                 // Si l'utilisateur est authentifié, on génère un token
-                const payload = { _id: 'userId', email: user.email, role: user.role, isBanned: user.isBanned};
-                const token = jwt.sign({ user: payload }, 'TOP_SECRET', { expiresIn: '1h' });
+                const payload = { _id: user.id, email: user.email, role: user.role };
+                const token = jwt.sign({ user: payload }, JWT_SECRET, { expiresIn: '1h' });
 
                 return done(null, { user, token });
             } catch (error) {
@@ -55,7 +55,7 @@ passport.use(
                 console.log("=== DEBUG JWT ===");
                 console.log("Token décodé : ", token);
                 console.log("=== END DEBUG ===");
-                
+
                 // On peut vérifier si le token contient un user valide
                 if (!token || !token.user) {
                     return done(null, false, { message: 'Invalid token' });
