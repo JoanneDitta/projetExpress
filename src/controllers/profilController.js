@@ -7,7 +7,7 @@ const getUserProfile = async (req, res) => {
 
     // Vérifie si l'utilisateur existe
     const user = await User.findByPk(userId, {
-      attributes: ["nom", "prenom", "email", "pseudo"], // Sélectionne uniquement ces champs
+      attributes: ["nom", "prenom", "role", "email", "pseudo"], // Sélectionne uniquement ces champs
     });
 
     if (!user) {
